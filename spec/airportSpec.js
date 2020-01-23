@@ -20,4 +20,10 @@ it('can clear plane for landing', function() {
   expect(airport.hangar).toEqual([plane]);
 });
 
+it('can clear planes for takeoff', function() {
+  airport.clearForLanding(plane);
+  airport.clearForTakeOff(plane);
+  expect(airport.hangar).toEqual([]);
+});
+
 });
