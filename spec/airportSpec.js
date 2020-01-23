@@ -26,4 +26,8 @@ it('can clear planes for takeoff', function() {
   expect(airport.hangar).toEqual([]);
 });
 
+it('checks whether the weather is stormy or not', function() {
+  expect(airport.isStormy()).toEqual(false);
+});
+
 });
