@@ -5,9 +5,9 @@ describe('Airport', function() {
   var airport;
   var plane;
 
-beforeEach(function() {  // before each test - create a new airport object
+beforeEach(function() {  
   airport = new Airport(); 
-  plane = jasmine.createSpy('plane', ['land']); // create a dummy plane that responds to our land method 
+  plane = jasmine.createSpy('plane', ['land']); 
 });
 
 it ('has no planes by default', function() {
@@ -26,8 +26,23 @@ it('can clear planes for takeoff', function() {
   expect(airport.hangar).toEqual([]);
 });
 
+describe('stormy weather', function() {
 it('checks whether the weather is stormy or not', function() {
-  expect(airport.isStormy()).toEqual(false);
+  expect(airport.isStormy()).toBeFalsy();
 });
+
+it('prevents a plane from taking off in stormy weather', function() {
+  spyOn (airport, 'isStormy').and.returnValue(true);
+  expect(function() { airport.clearForTakeOff(plane); }).toThrowError('Unable to take off due to stormy weather conditions');
+});
+
+it('prevents a plane from landing in stormy weather', function() {
+  spyOn(airport, 'isStormy').and.returnValue(true);
+  expect(function() { airport.clearForLanding(plane); }).toThrowError('Unable to land due to stormy weather conditions');
+});
+
+});
+
+
 
 });
